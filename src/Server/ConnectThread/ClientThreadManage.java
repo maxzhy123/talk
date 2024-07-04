@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Set;
 
 public class ClientThreadManage {
+    //在线用户Map
     private static HashMap<String, StoCThread> threadHashMap = new HashMap<>();
     public static void add(String userId, StoCThread stoCThread) {
         threadHashMap.put(userId, stoCThread);

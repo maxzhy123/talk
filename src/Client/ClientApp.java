@@ -5,6 +5,12 @@ import Client.service.MessageClientService;
 import Client.service.UserClientService;
 import utils.Utility;
 
+/**
+ * @author 韩顺平
+ * @version 1.0
+ * 大部分复制
+ */
+
 public class ClientApp {
     private boolean loop = true; //控制是否显示菜单
     private String key = ""; // 接收用户的键盘输入
@@ -33,8 +39,7 @@ public class ClientApp {
                     String userId = Utility.readString(50);
                     System.out.print("请输入密  码: ");
                     String pwd = Utility.readString(50);
-                    //这里就比较麻烦了, 需要到服务端去验证该用户是否合法
-                    //这里有很多代码, 我们这里编写一个类 UserClientService[用户登录/注册]
+
                     if (userClientService.checkUser(userId, pwd)) {
                         System.out.println("===========欢迎 (用户 " + userId + " 登录成功) ===========");
                         //进入到二级菜单
@@ -49,11 +54,10 @@ public class ClientApp {
                             key = Utility.readString(1);
                             switch (key) {
                                 case "1":
-                                    //这里老师准备写一个方法，来获取在线用户列表
                                     userClientService.getOnlineList();
                                     break;
                                 case "2":
-                                    System.out.println("请输入想对大家说的话: ");
+                                    System.out.println("请输入想对所有人说的话: ");
                                     String s = Utility.readString(100);
                                     messageClientService.sendMessageToAll(s, userId);
                                     break;

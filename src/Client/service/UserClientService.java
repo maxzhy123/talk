@@ -1,10 +1,7 @@
 package Client.service;
 
-import Client.ConnectThread.CtoSThread;
-import Client.ConnectThread.ThreadManage;
-import common.Message;
-import common.MessageType;
-import common.User;
+import Client.ConnectThread.*;
+import common.*;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -20,14 +17,17 @@ public class UserClientService {
     public boolean checkUser(String userId, String pwd) {
         user = new User(userId, pwd);
         try {
+            //将user对象发送给服务端校验
             socket = new Socket(InetAddress.getLocalHost(), 9905);
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             oos.writeObject(user);
 
+            //读取返回的消息
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
             Message ms = (Message) ois.readObject();
 
             if(ms.getMesType().equals(MessageType.MESSAGE_LOGIN_SUCCEED)){
+                //登录成功则启动线程维持socket
                 CtoSThread ctosThread = new CtoSThread(socket);
                 ctosThread.start();
                 ThreadManage.add(userId, ctosThread);
@@ -43,6 +43,7 @@ public class UserClientService {
 
     }
 
+    //获取在线用户列表
     public void getOnlineList() {
         Message message = new Message();
         message.setMesType(MessageType.MESSAGE_GET_ONLINE_FRIEND);
