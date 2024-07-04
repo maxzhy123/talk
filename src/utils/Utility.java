@@ -1,4 +1,4 @@
-package com.hspedu.qqclient.utils;
+package utils;
 
 
 /**

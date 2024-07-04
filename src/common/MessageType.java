@@ -1,4 +1,4 @@
-package com.hspedu.qqcommon;
+package common;
 
 /**
  * @author 韩顺平
